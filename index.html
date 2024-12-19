@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Index</title>
+  <title>Dynamic File Index</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+    }
+    h1 {
+      color: #333;
     }
     a {
       text-decoration: none;
@@ -16,15 +19,41 @@
     a:hover {
       text-decoration: underline;
     }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 5px 0;
+    }
   </style>
 </head>
 <body>
   <h1>Index of /</h1>
-  <ul>
-    <li><a href="alfa/">alfa/</a></li>
-    <li><a href="echo/">echo/</a></li>
-    <li><a href="elysium/">elysium/</a></li>
-    <li><a href="main.html">main.html</a></li>
-  </ul>
+  <ul id="file-list"></ul>
+
+  <script>
+    // Получаем текущий URL для динамического построения
+    const baseUrl = window.location.href;
+    const fileListElement = document.getElementById('file-list');
+
+    // Список файлов и папок (заполняется вручную, если нет серверной части)
+    const filesAndFolders = [
+      { name: "alfa/", isFolder: true },
+      { name: "echo/", isFolder: true },
+      { name: "elysium/", isFolder: true },
+      { name: "main.html", isFolder: false }
+    ];
+
+    // Генерация HTML-списка
+    filesAndFolders.forEach(item => {
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = baseUrl + item.name;
+      link.textContent = item.name;
+      li.appendChild(link);
+      fileListElement.appendChild(li);
+    });
+  </script>
 </body>
 </html>
